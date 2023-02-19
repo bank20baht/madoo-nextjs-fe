@@ -1,23 +1,18 @@
-import { useSession, signIn, signOut } from "next-auth/react"
 
-
-
-export default function Home() {
-  const { data: session } = useSession()
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user.email} <br />
-        {session.user.name}<br/>
-        <img src={session.user.image} /><br/>
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    )
-  }
+import type { NextPage } from 'next'
+import styles from '../styles/Home.module.css'
+import { Text, Spacer } from "@nextui-org/react";
+// localhost:3000
+const Home: NextPage = () => {
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <Text h2>Write everything if you want</Text>
+      <Spacer y={1} />
+      <Text size="$lg">
+        the blog is you can write anything 
+      </Text>
     </>
   )
 }
+
+export default Home
