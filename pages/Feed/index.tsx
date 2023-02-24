@@ -1,9 +1,9 @@
-import React from 'react'
-
-const index = () => {
+import React from "react";
+import { Textarea, Button, Text, Grid } from "@nextui-org/react";
+const Login = () => {
   return (
     <div>index</div>
   )
 }
 
-export default index
+export default Login

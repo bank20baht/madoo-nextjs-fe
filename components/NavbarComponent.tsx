@@ -18,9 +18,9 @@ const NavbarComponent = () => {
             <Navbar.Content>
                 {!session ?  /*User doesnt exist*/
                     <>
-                        <Navbar.Link href="/login">
-                            <Button auto flat onClick={() => signIn()}>
-                                Sign in
+                        <Navbar.Link href="/Login">
+                            <Button auto flat>
+                                Login
                             </Button>
                         </Navbar.Link>
                     </>

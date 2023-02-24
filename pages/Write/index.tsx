@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Textarea, Button, Text, Grid } from "@nextui-org/react";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router";
+import axios from "axios";
 
-
-const Home: NextPage = () => {
+const Home = () => {
     const router = useRouter();
     const { data: session } = useSession()
-    
+    const apiURL = 'https://jsonplaceholder.typicode.com/posts'
+    const postArticle = async () => {
+        const Article = {
+            title: 'New Post',
+            body: 'new aaaaaaa'
+        }
+        await axios.post(apiURL, Article)
+    }
     return (
         <Grid.Container gap={1}>
             <Text h3>Title</Text>
@@ -37,9 +44,9 @@ const Home: NextPage = () => {
             <Grid xs={12}>
                 <Text>Posting as {session?.user?.name}</Text>
             </Grid>
-            <Button>Create Article</Button>
+                <Button onPress={postArticle}>Create Article</Button>
         </Grid.Container>
     );
-  };
+};
   
-  export default Home;
+export default Home;
