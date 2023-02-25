@@ -1,19 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Textarea, Button, Text, Grid } from "@nextui-org/react";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router";
 import axios from "axios";
 
+const apiURL = 'http://localhost:5000/api/addArticle'
+
 const Home = () => {
     const router = useRouter();
     const { data: session } = useSession()
-    const apiURL = 'https://jsonplaceholder.typicode.com/posts'
-    const postArticle = async () => {
-        const Article = {
-            title: 'New Post',
-            body: 'new aaaaaaa'
-        }
-        await axios.post(apiURL, Article)
+    const [articles, setArticles] = useState();    
+    const initalState = {
+        title: "",
+        content: ""
+    }
+
+    const [articleData, setArticleData] = useState(initalState)
+
+    const handleChange = (e: any) => {
+        setArticleData({...articleData, [e.target.name] : e.target.value})
+    }
+
+    console.log(articleData)
+    function postArticle() {
+        axios.post(apiURL, {
+            title: articleData.title,
+            content: articleData.content,
+            user_email: session?.user?.email,
+        }).then((resspone) => {
+            setArticles(resspone.data)
+        })
+        setArticleData(initalState)
+        router.push("/")
     }
     return (
         <Grid.Container gap={1}>
@@ -26,7 +44,7 @@ const Home = () => {
                     fullWidth={true}
                     rows={1}
                     size="xl"
-                    //onChange={handleChange}
+                    onChange={handleChange}
                 />
             </Grid>
             <Text h3>Article Text</Text>
@@ -38,11 +56,11 @@ const Home = () => {
                     fullWidth={true}
                     rows={6}
                     size="xl"
-                    //onChange={handleChange}
+                    onChange={handleChange}
                 />
             </Grid>
             <Grid xs={12}>
-                <Text>Posting as {session?.user?.name}</Text>
+                <Text>Posting as {session?.user?.email}</Text>
             </Grid>
                 <Button onPress={postArticle}>Create Article</Button>
         </Grid.Container>
