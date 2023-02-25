@@ -7,7 +7,6 @@ import axios from 'axios';
 import CardArticle from '@/components/CardArticle';
 export type ArticleData = {
   _id: string,
-  id: number,
   title: string,
   content: string,
   user_email: string,
