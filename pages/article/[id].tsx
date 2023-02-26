@@ -1,8 +1,11 @@
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Text, Spacer, User, Button } from "@nextui-org/react";
+import { Text, Spacer, User, Button, Card, Container, Row  } from "@nextui-org/react";
 import axios from 'axios';
+
+import styles from "../../styles/Home.module.css";
+
 // localhost:3000/article?id=1
 const apiURL = 'http://localhost:5000/api/article/'
 
@@ -11,37 +14,45 @@ export type ArticleData = {
     title: string,
     content: string,
     user_email: string,
-    timestamp: string
+    timestamp: string,
+    user_name: string,
+    user_img: string
   }
 
 const Article = (props:any) => {
-    console.log("prop ->" + props)
+
     const router = useRouter();
     const [article, setArticle] = useState<ArticleData | null>();
-
     const { id } = router.query;
-    console.log(id)
 
     useEffect( () => {
-        axios.get(apiURL + id).then((response) => {
+        if(id != null) {
+            axios.get(apiURL + id).then((response) => {
             setArticle(response.data)
             console.log(response.data)
-        })
+            })
+        }
     }, [id])
     
     return (
-        <>
-            <Text h2>{article?.title}</Text>
-            <Spacer y={.5} />
+        <div style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>
+            <div className={styles.card} style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>
+                <h1>
+                    {article?.title}  
+                </h1>         
+            </div>
+            <Spacer y={1} />        
+            <div className={styles.card} style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>
+            {article?.content}           
+            </div>
+            <Spacer y={1} /> 
             <User
-                name={article?.user_email?.toLowerCase()}
-                size="md"
+                src= {article?.user_img}
+                name= {article?.user_name}
+                size= "md"
             />
-            <Spacer y={1} />
-            <Text size="$lg">
-                {article?.content}
-            </Text>
-        </>
+
+        </div>
     )
 }
 

@@ -10,7 +10,9 @@ export type ArticleData = {
   title: string,
   content: string,
   user_email: string,
-  timestamp: string
+  timestamp: string,
+  user_name: string,
+  user_img: string
 }
 
 const apiURL = 'http://localhost:5000/api/articles'
@@ -39,12 +41,12 @@ const Home: NextPage = () => {
       </Grid>
       <Grid xs={12} justify="center">
         <Text>There are in database</Text>
-
       </Grid>  
-           {articles?.map((article) => (
+
+    </Grid.Container>
+    {articles?.map((article) => (
                   <CardArticle article={article} key={article._id}/>
               ))?? <Text>No article found</Text>}
-    </Grid.Container>
     </>
   )
 }

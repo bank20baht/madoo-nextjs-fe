@@ -10,7 +10,7 @@ export default function App({ Component, pageProps: { session, ...pageProps }, }
     <SessionProvider session={session}>
       <NextUIProvider>
         <Navbar />
-        <Box css={{ px: "$12", py: "$15", mt: "$12", "@xsMax": {px: "$10"}, maxWidth: "800px", margin: "0 auto" }}>
+        <Box css={{ px: "$12", py: "$15", mt: "$12", "@xsMax": {px: "$10"}, maxWidth: "1500px", margin: "0 auto" }}>
           <Component {...pageProps} />
         </Box>
       </NextUIProvider>

@@ -28,6 +28,8 @@ const Home = () => {
             title: articleData.title,
             content: articleData.content,
             user_email: session?.user?.email,
+            user_name: session?.user?.name,
+            user_img: session?.user?.image
         }).then((resspone) => {
             setArticles(resspone.data)
         })
@@ -61,7 +63,7 @@ const Home = () => {
                 />
             </Grid>
             <Grid xs={12}>
-                <Text>Posting as {session?.user?.email}</Text>
+                <Text>Posting as {session?.user?.name}</Text>
             </Grid>
                 <Button onPress={postArticle}>Create Article</Button>
         </Grid.Container>
