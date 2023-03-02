@@ -5,6 +5,7 @@ import { Text, Spacer, Grid,  Link, Button } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardArticle from '@/components/CardArticle';
+import { Session } from 'inspector';
 export type ArticleData = {
   _id: string,
   title: string,
@@ -15,9 +16,9 @@ export type ArticleData = {
   user_img: string
 }
 
-const apiURL = 'http://localhost:5000/api/articles'
+const apiURL = 'http://localhost:5000//api/user/'
 
-const Home: NextPage = () => {
+const MyStory: NextPage = () => {
   const [articles, setArticles] = useState<ArticleData[] | null>();
 
   useEffect(() => {
@@ -30,19 +31,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Grid.Container gap={1} justify="center">
-        <Text h1
-          size={60}
-          css={{
-            textGradient: "45deg, $yellow600 -20%, $red600 100%",
-          }}
-          weight="bold">Write everything if you want</Text>
-      <Grid xs={12} justify="center">
-        <Button auto color="warning">Write you Story</Button>
-      </Grid>
-      <Grid xs={12} justify="center">
-        <Text>There are in database</Text>
-      </Grid>  
-
+        <Text h1>My Article</Text>
     </Grid.Container>
     {articles?.slice(0).reverse().map((article) => (
                   <CardArticle article={article} key={article._id}/>
@@ -51,4 +40,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default MyStory

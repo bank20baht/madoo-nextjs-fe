@@ -26,7 +26,7 @@ const CardArticle: NextPage<Props> = (props:any) => {
             <Card.Body>
                 <Row justify="center" align="center">
                     <div style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>
-                        <h2>{article.title}</h2>
+                        <h3>{article.title}</h3>
                     </div>
                 </Row>
                 <Row justify="center" align="center">

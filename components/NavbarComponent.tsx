@@ -17,8 +17,7 @@ const NavbarComponent = () => {
             weight="bold">Madoo.</Text>
             </Navbar.Brand>
             <Navbar.Content hideIn="xs" variant="highlight-rounded">
-                <Navbar.Link href="/Feed">Feed</Navbar.Link>
-                <Navbar.Link href="/Write">Write</Navbar.Link>
+
             </Navbar.Content>
 
             <Navbar.Content>
@@ -39,10 +38,19 @@ const NavbarComponent = () => {
                 :         /* User does exist */
                     <>
                         <Navbar.Item>
-                            <Text>Hi, {session?.user?.name}</Text>
+                            <Navbar.Link href="/Write">
+                                <Button auto bordered color="error">
+                                    Write
+                                </Button>
+                            </Navbar.Link>
                         </Navbar.Item>
                         <Navbar.Item>
-                            <Button bordered color="error" auto onPress={() => signOut()}>
+                            <Button auto bordered color="error">
+                                Hi, {session?.user?.name}
+                            </Button>
+                        </Navbar.Item>
+                        <Navbar.Item>
+                            <Button color="error" auto onPress={() => signOut()}>
                                 Sign Out
                             </Button>
                         </Navbar.Item>

@@ -47,12 +47,15 @@
 }
 
 .card {
-  text-align: center;
   width: var(--max-width);
+  height: max-content;
   font-size: 1.5em;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   user-select: none;
-  
+  white-space: 'pre-wrap';
+  overflow-wrap: 'break-word';
+  text-align: 'center';
+  border-radius: "10px"
  }
 
 .card span {
@@ -276,4 +279,14 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
