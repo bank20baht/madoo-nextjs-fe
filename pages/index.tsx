@@ -1,7 +1,7 @@
 
 import type { NextPage } from 'next'
 import styles from '../styles/Home.module.css'
-import { Text, Spacer, Grid,  Link, Button, Col } from "@nextui-org/react";
+import { Text, Spacer, Grid,  Loading, Button, Col, Row } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardArticle from '@/components/CardArticle';
@@ -45,12 +45,20 @@ const Home: NextPage = () => {
             }}>Write you Story</Button>
           </Col>
         </Grid> 
-    </Grid.Container>
+      </Grid.Container>
     {articles && articles.length > 0
       ? articles.slice(0).reverse().map((article) => (
           <CardArticle article={article} key={article._id} />
         ))
-      : <Text>No articles found</Text>
+      : 
+      <Grid.Container justify="center">
+        <Grid xs={1} alignItems="center">
+          <Loading loadingCss={{ $$loadingSize: "100px", $$loadingBorder: "10px" }}/> 
+        </Grid> 
+        <Grid xs={1} alignItems="center">
+          <Text>No Article Found, plase try again leater</Text>
+        </Grid> 
+    </Grid.Container>
     }
     </>
   )
