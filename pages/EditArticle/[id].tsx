@@ -10,9 +10,9 @@ const apiURL = 'http://localhost:5000/api/article/'
 const Home = () => {
 
     const { data: session } = useSession()
-    const [articles, setArticles] = useState();    
+    const [ articles, setArticles ] = useState();    
 
-    const [articleData, setArticleData] = useState( {
+    const [ articleData, setArticleData ] = useState( {
         title: "",
         content: ""
     })
@@ -36,25 +36,28 @@ const Home = () => {
     }
 
     console.log(articleData)
-    function editArticle() {
-        axios.put('http://localhost:5000/api/update/article', {
+    async function editArticle() {
+        try {
+          const response = await axios.put('http://localhost:5000/api/update/article', {
             _id: id,
             title: articleData.title,
             content: articleData.content,
             user_email: session?.user?.email,
             user_name: session?.user?.name,
             user_img: session?.user?.image
-        }).then((resspone) => {
-            setArticles(resspone.data)
-            window.location.href = "/"
-        })
-       // window.location.href = "/"
-    }
+          });
+          setArticles(response.data);
+          window.location.href = "/";
+        } catch (error) {
+          console.error(error);
+        }
+      }
     return (
         <Grid.Container gap={2.5}>
             <Text h3>Title</Text>
             <Grid xs={12}>
                 <Textarea 
+                    maxLength={95}
                     name="title" 
                     aria-label="title"
                     placeholder="Article Title"
@@ -66,19 +69,17 @@ const Home = () => {
                 />
             </Grid>
             <Text h3>Article Text</Text>
-            <Grid >
+            <Grid xs={12}>
                 <Textarea 
                     name="content" 
                     aria-label="content"
                     placeholder="Article Text"
                     fullWidth={true}
-                    rows={6}
+                    rows={18}
                     size="xl"
                     value={articleData.content}
                     onChange={handleChange}
-                    
-                    minRows={1}
-                    maxRows={10}
+
                 />
             </Grid>
             <Grid xs={12}>

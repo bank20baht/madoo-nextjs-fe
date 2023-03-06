@@ -1,10 +1,11 @@
 
 import type { NextPage } from 'next'
 import styles from '../styles/Home.module.css'
-import { Text, Spacer, Grid,  Link, Button } from "@nextui-org/react";
+import { Text, Spacer, Grid,  Link, Button, Col } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardArticle from '@/components/CardArticle';
+import { useRouter } from "next/router";
 export type ArticleData = {
   _id: string,
   title: string,
@@ -18,35 +19,39 @@ export type ArticleData = {
 const apiURL = 'http://localhost:5000/api/articles'
 
 const Home: NextPage = () => {
+  const router = useRouter()
   const [articles, setArticles] = useState<ArticleData[] | null>();
 
   useEffect(() => {
-    axios.get(apiURL).then((response) => {
-      setArticles(response.data)
-      console.log(response.data)
-    })
-  }, [])
+    const getArticle = async () => {
+      try {
+        const response = await axios.get(apiURL);
+        setArticles(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getArticle();
+  }, []);
 
   return (
     <>
-      <Grid.Container gap={1} justify="center">
-        <Text h1
-          size={60}
-          css={{
-            textGradient: "45deg, $yellow600 -20%, $red600 100%",
-          }}
-          weight="bold">Write everything if you want</Text>
-      <Grid xs={12} justify="center">
-        <Button auto color="warning">Write you Story</Button>
-      </Grid>
-      <Grid xs={12} justify="center">
-        <Text>There are in database</Text>
-      </Grid>  
-
+      <Grid.Container justify="center" css={{"height": "350px", "backgroundColor": "#26292B"}}>
+        <Grid xs={12} sm={6} alignItems="center">
+          <Col css={{"width": "100%"}}>
+            <Text weight={"bold"} size={70} css={{"textAlign": "center", textGradient: "45deg, $yellow600 -20%, $red600 100%"}}>Write everything if you want</Text>
+            <Button size="md" color="error" auto css={{"width": "100%", "marginTop": "10px"}} onPress={() => {
+              router.push("/Write/")
+            }}>Write you Story</Button>
+          </Col>
+        </Grid> 
     </Grid.Container>
-    {articles?.slice(0).reverse().map((article) => (
-                  <CardArticle article={article} key={article._id}/>
-              ))?? <Text>No article found</Text>}
+    {articles && articles.length > 0
+      ? articles.slice(0).reverse().map((article) => (
+          <CardArticle article={article} key={article._id} />
+        ))
+      : <Text>No articles found</Text>
+    }
     </>
   )
 }

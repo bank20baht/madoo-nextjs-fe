@@ -20,26 +20,31 @@ export type ArticleData = {
     user_img: string
   }
 
-const Article = (props:any) => {
+const Article = () => {
     const { data: session } = useSession()
     const router = useRouter();
     const [article, setArticle] = useState<ArticleData | null>();
     const { id } = router.query;
-
     useEffect( () => {
-        if(id != null) {
-            axios.get(apiURL + id).then((response) => {
-            setArticle(response.data)
-            console.log(response.data)
-            })
+        const getArticleById = async () => {
+          try {
+            const response = await axios.get(apiURL + id);
+            setArticle(response.data);
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
         }
-    }, [id])
+      
+        if (id) {
+          getArticleById();
+        }
+      }, [id]);
     const deleteArticle = async () => {
-        axios.delete(apiURL + id).then((respones) => {
-            setArticle(null)
-            router.push("/")
-        })
-    }
+        await axios.delete(apiURL + id);
+        setArticle(null);
+        router.push("/");
+      }
     return (
         <div style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word'}}>
             <div className={styles.card} style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word', textAlign: 'center', borderRadius: "20px"}} >
@@ -59,7 +64,7 @@ const Article = (props:any) => {
             />
             {   session && article?.user_email == session?.user?.email ?
                 <Row>
-                                
+                                    
                     <Button size="sm" onPress={() => {
                         router.push("/EditArticle/" + article?._id)
                     }}>Edit</Button>
@@ -69,9 +74,6 @@ const Article = (props:any) => {
             :
                 null
             }
-            
-
-
         </div>
     )
 }

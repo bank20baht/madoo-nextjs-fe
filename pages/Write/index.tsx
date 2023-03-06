@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Textarea, Button, Text, Grid } from "@nextui-org/react";
+import { Textarea, Button, Text, Grid, Link } from "@nextui-org/react";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -23,21 +23,37 @@ const Home = () => {
     }
 
     console.log(articleData)
-    function postArticle() {
-        axios.post(apiURL, {
+    async function postArticle() {
+        try {
+          const response = await axios.post(apiURL, {
             title: articleData.title,
             content: articleData.content,
             user_email: session?.user?.email,
             user_name: session?.user?.name,
-            user_img: session?.user?.image
-        }).then((resspone) => {
-            setArticles(resspone.data)
-        })
-        setArticleData(initalState)
-        router.push("/")
+            user_img: session?.user?.image,
+          });
+          setArticles(response.data);
+          router.push('/');
+        } catch (error) {
+          console.error(error);
+        }
+        setArticleData(initalState);
+      }
+    if(!session) {
+        return (
+            <Grid.Container alignItems="center">
+                <Grid xs={12} justify="center" >
+                    <Text h2>Sorry, you need to log in first. to be able to write</Text>
+                </Grid>  
+                <Grid xs={12} justify="center">
+                    <Text>I already have account</Text>
+                    <Link href='/Login'>.Login</Link>
+                </Grid>  
+            </Grid.Container>
+        );
     }
     return (
-        <Grid.Container gap={1}>
+        <Grid.Container gap={2.5}>
             <Text h3>Title</Text>
             <Grid xs={12}>
                 <Textarea 
@@ -58,7 +74,7 @@ const Home = () => {
                     aria-label="content"
                     placeholder="Article Text"
                     fullWidth={true}
-                    rows={6}
+                    rows={18}
                     size="xl"
                     onChange={handleChange}
                 />
@@ -67,7 +83,7 @@ const Home = () => {
                 <Text>Posting as {session?.user?.name}</Text>
             </Grid>
                 <Button onPress={postArticle}>Create Article</Button>
-            <input type={"file"} ></input>
+            
 
         </Grid.Container>
         

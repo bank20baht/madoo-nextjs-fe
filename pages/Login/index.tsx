@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import { Input, Spacer, Button, Text, Grid, Link } from "@nextui-org/react";
 import { useSession, signIn, signOut,  } from "next-auth/react"
 
-async function handleGoogleLogin() {
-  signIn('google', {callbackUrl:"http://localhost:3000"})
-}
-
 const Login = () => {
   const { data: session } = useSession()
   const router = useRouter();
+
+  async function handleGoogleLogin() {
+    await signIn('google', { callbackUrl: "http://localhost:3000" });
+  }
+
   if(session) {
     router.push("/")
   }
@@ -26,10 +27,10 @@ const Login = () => {
         <Text>Tell you story to whe world 😁</Text>
       </Grid>  
       <Grid xs={12} justify="center">
-        <Input  size="lg" width="300px" placeholder="Email" />
+        <Input  size="lg" width="300px" placeholder="Email" aria-label="Email address input field"/>
       </Grid>
       <Grid xs={12} justify="center">
-        <Input.Password  size="lg" width="300px" placeholder="Password" />
+        <Input.Password  size="lg" width="300px" placeholder="Password" aria-label="passwaord input field"/>
       </Grid>
       <Grid xs={12} justify="center">
         <Button >Login</Button>  

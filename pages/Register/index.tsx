@@ -3,18 +3,14 @@ import { Input, Spacer, Button, Text, Grid, Link } from "@nextui-org/react";
 import axios from 'axios';
 import { useRouter } from "next/router";
 
-export type Register = {
-
-}
-
-const apiURL = 'http://localhost:4001/register'
+const apiURL = 'http://localhost:5000/register'
 
 const Register = () => {
   const router = useRouter();
   const [register, setRegister] = useState();
   const initalState = {
-    name: "",
-    lastname: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: ""
   }
@@ -22,17 +18,20 @@ const Register = () => {
   const handleChange = (e: any) => {
     setRegisterData({...registerData, [e.target.name] : e.target.value})
 }
-  function postRegister() {
-    axios.post(apiURL, {
-      name: registerData.name,
-      lastname: registerData.lastname,
-      email: registerData.email,
-      password: registerData.password
-    }).then((respone) => {
-      setRegisterData(respone.data)
-    })
-    setRegisterData(initalState)
-    router.push("/login")
+  async function postRegister() {
+    try {
+      const response = await axios.post(apiURL, {
+        first_name: registerData.first_name,
+        last_name: registerData.last_name,
+        email: registerData.email,
+        password: registerData.password
+      });
+      setRegisterData(response.data);
+      router.push("/Login");
+      setRegisterData(initalState);
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <>
@@ -44,19 +43,19 @@ const Register = () => {
           }}
           weight="bold">Register</Text>
       <Grid xs={12} justify="center">
-        <Input  size="lg" width="300px" placeholder="Name" onChange={handleChange}/>
+        <Input  aria-label="NAME" size="lg" width="300px" placeholder="Name" onChange={handleChange}/>
       </Grid>  
       <Grid xs={12} justify="center">
-        <Input  size="lg" width="300px" placeholder="Lastname" onChange={handleChange}/>
+        <Input  aria-label="Lastname" size="lg" width="300px" placeholder="Lastname" onChange={handleChange}/>
       </Grid>  
       <Grid xs={12} justify="center">
-        <Input  size="lg" width="300px" placeholder="Email" onChange={handleChange}/>
+        <Input  aria-label="Email" size="lg" width="300px" placeholder="Email" onChange={handleChange}/>
       </Grid>
       <Grid xs={12} justify="center">
-        <Input.Password  size="lg" width="300px" placeholder="Password" />
+        <Input.Password aria-label="Password" size="lg" width="300px" placeholder="Password" />
       </Grid>
       <Grid xs={12} justify="center">
-        <Input.Password  size="lg" width="300px" placeholder="confirm password" onChange={handleChange}/>
+        <Input.Password aria-labelledby="confirm-password-label" size="lg" width="300px" placeholder="confirm password" onChange={handleChange} />
       </Grid>
       <Grid xs={12} justify="center">
         <Button onPress={postRegister}>Register</Button>  

@@ -5,7 +5,8 @@ import { Text, Spacer, Grid,  Link, Button } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardArticle from '@/components/CardArticle';
-import { Session } from 'inspector';
+import { useRouter } from "next/router";
+
 export type ArticleData = {
   _id: string,
   title: string,
@@ -16,17 +17,25 @@ export type ArticleData = {
   user_img: string
 }
 
-const apiURL = 'http://localhost:5000//api/user/'
+const apiURL = 'http://localhost:5000/api/user/'
 
-const MyStory: NextPage = () => {
+const MyStory = () => {
   const [articles, setArticles] = useState<ArticleData[] | null>();
-
+  const router = useRouter();
+  const { id } = router.query;
+  console.log("id in Mystroty page => " + id)
   useEffect(() => {
-    axios.get(apiURL).then((response) => {
-      setArticles(response.data)
-      console.log(response.data)
-    })
-  }, [])
+    const getMyArticle = async () => {
+      try {
+        const response = await axios.get(apiURL + id);
+        setArticles(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getMyArticle();
+  }, []);
 
   return (
     <>
