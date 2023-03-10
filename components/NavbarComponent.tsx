@@ -1,4 +1,4 @@
-import { Navbar, Button, Text, User, Avatar, useTheme } from "@nextui-org/react";
+import { Navbar, Button, Text } from "@nextui-org/react";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from "next/router";

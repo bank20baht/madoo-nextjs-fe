@@ -1,13 +1,12 @@
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Text, Spacer, User, Button, Card, Container, Row  } from "@nextui-org/react";
+import { Spacer, User, Button, Row  } from "@nextui-org/react";
 import axios from 'axios';
 
-import styles from "../../styles/Home.module.css";
-import { userAgent } from "next/server";
+import styles from "../../styles/Home.module.css"
 import { useSession } from "next-auth/react"
-// localhost:3000/article?id=1
+
 const apiURL = 'http://localhost:5000/api/article/'
 
 export type ArticleData = {
@@ -17,7 +16,7 @@ export type ArticleData = {
     user_email: string,
     timestamp: string,
     user_name: string,
-    user_img: string
+    user_img: string,
   }
 
 const Article = () => {
@@ -54,7 +53,7 @@ const Article = () => {
             </div>
             <Spacer y={1} />        
             <div className={styles.card} style={{whiteSpace: 'pre-wrap', overflowWrap: 'break-word', padding:"3vh", borderRadius: "20px"}}>
-                {article?.content}           
+                {article?.content}       
             </div>
             <Spacer y={1} /> 
             <User

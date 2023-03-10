@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Spacer, Button, Text, Grid, Link } from '@nextui-org/react';
+import { Input, Button, Text, Grid, Link } from '@nextui-org/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 

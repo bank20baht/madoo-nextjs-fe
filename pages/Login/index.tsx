@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Input, Spacer, Button, Text, Grid, Link } from "@nextui-org/react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { Input, Button, Text, Grid, Link } from "@nextui-org/react";
+import { useSession, signIn } from "next-auth/react";
 import axios from "axios";
 
 const apiURL = "http://localhost:5000/login";

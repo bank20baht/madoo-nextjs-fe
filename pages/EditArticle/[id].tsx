@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Textarea, Button, Text, Grid } from "@nextui-org/react";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router";
 import axios from "axios";
 

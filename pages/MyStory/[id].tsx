@@ -1,7 +1,5 @@
 
-import type { NextPage } from 'next'
-import styles from '../styles/Home.module.css'
-import { Text, Spacer, Grid,  Link, Button } from "@nextui-org/react";
+import { Text, Grid } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardArticle from '@/components/CardArticle';
