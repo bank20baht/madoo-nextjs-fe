@@ -1,38 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend
+- มีการใช้ nextjs ที่เป็น react framwork ใช้ในการทำ frontend เเละใช้ axios ในการดึงข้อมูลจากตัว restful api ที่ได้ทำไว้ ซึ่งรายละเอียดเป็นดังนี้
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
+cd frontend
+npm i
+npm run dev
+```
+- มีหน้าเเสดง บทความทั้งหมดในเว็บไซต์ (get all) เเละข้อความนั้นๆถ้าคลิ๊กเข้าไป (get by id) 
+![main page](https://user-images.githubusercontent.com/89448778/224480033-ebe20981-4b58-4875-b833-07cf1b4be225.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- มีหน้า เขียน blog (ต้อง login ก่อน)
+![create article](https://user-images.githubusercontent.com/89448778/224480217-25be5252-aa5e-4ffa-82bf-bb2da4182d47.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- หลังจากเขียนเสร็จบทความที่เขียนขึ้นก็จะไปเเสดงผลที่หน้า main
+![main page 2](https://user-images.githubusercontent.com/89448778/224481334-88c85251-5bad-4b3f-8590-0f0c6a3758a4.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- หน้าเเสดงบทความของฉัน (get by user_name) โดยการกดที่ชื่อตรงมุมขวา
+![my article page](https://user-images.githubusercontent.com/89448778/224482788-84328589-7901-4f69-9035-402f6d70f30a.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+- หากเป็นเจ้าของบทความสามารถเเก้ไขเเละลบได้
+![my article can edit or delete](https://user-images.githubusercontent.com/89448778/224480111-8c72cc59-fb46-4c2d-8e2d-307dd8b8ab07.png)
 
-To learn more about Next.js, take a look at the following resources:
+- หน้า edit article 
+![edit article](https://user-images.githubusercontent.com/89448778/224480070-5b677ff9-b950-4327-9e64-0a57b9798b8b.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- เมื่อกดอัพเดทเเล้วมันก็จะเเก้ไขตามที่ต้องการเเละ db ก็จะ update
+![after update](https://user-images.githubusercontent.com/89448778/224619230-79bef1b7-d67e-4472-b81c-8c8e31261128.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- ถ้าไม่มีก็จะไม่มีปุ่ม edit หรือ delete
+![not my article (2)](https://user-images.githubusercontent.com/89448778/224480187-e721396f-9c39-4f52-9212-bb800702d502.png)
 
-## Deploy on Vercel
+- มีหน้า login ซึ่งจะใช้เป็น google signin api
+![login page](https://user-images.githubusercontent.com/89448778/224480281-9f20ba02-3ef6-48b5-82e1-34032f6bad86.png)
+![login with google](https://user-images.githubusercontent.com/89448778/224480257-076dc020-5b55-4f1d-bbe2-eca0aa563dec.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- มีการใช้ session หากไม่ได้ login ก็จะไปที่หน้า เขียน blog ไม่ได้ หาก session หมดอายุก็จะออกจากระบบ
+- axios เพื่อเรียกใช้ api ในการทำ CRUD บนหน้า frontend เเละใช้หลักการของ asyn await (non-blocking ทั้งหมด) พร้อมกับตรวจจับ exception
+- ถ้าหากการดึงข้อมูลยังไม่เสร็จจะมีการ loading
+![loading from db](https://user-images.githubusercontent.com/89448778/224482328-d4300aed-6205-42ab-88d8-83e5448ac1a1.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
